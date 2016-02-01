@@ -1,0 +1,62 @@
+This file describes BayseanClassifier. It classifies documents into categories
+based on the classic Baysean classification algorithm. A second program,
+CategoryValidator, calculates the accuracy of the results.
+
+   Copyright (C) 2016   Ezra Erb
+
+This program is free software: you can redistribute it and/or modify it under 
+the terms of the GNU General Public License version 3 as published by the Free 
+Software Foundation.
+
+This program is distributed in the hope that it will be useful, but WITHOUT 
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with 
+this program.  If not, see <http://www.gnu.org/licenses/>.
+
+I'd appreciate a note if you find this program useful or make updates. Please 
+contact me through LinkedIn (my profile also has a link to the code depository)
+
+
+The project consists of two programs, BayseanClassifier and CategoryValidator. 
+The former implements a classic Baysean text classification algorithm to 
+classify documents based on a training set. It removes stop words and 
+non-alpabetic words, and then applies Porter stemming to reduce the 
+dimensionality of the overall word space. The classifier expects the training 
+documents to be orgaized into directories by categoy, giving the following 
+structure:
+
+root1
+   category 1a
+      document
+      document
+      ....
+   category 1b
+      document
+      document
+      ...
+   ...
+root2
+   ...
+
+Multiple directoy roots may be specified. Any number of documents to classify 
+may be specified, including directories. For a directory, all documents in the
+directory tree will be classified. Document paths and categories are sent to
+standard out.
+
+Category Validator takes a directory tree of documents orgaizied into directoies
+by category. The expected structure is the same as the training set for the
+Baysean classifier. It compares this to the results file to calculate both
+the precision and recall rates per categoy. Precision is the percentage of
+documents classifed in a category that actually belong. Recall is the percentage
+of documents in a category that were classified there. These two measues are 
+then combined into the balanced F measure statistic per category.
+
+The classifier was tested through cross validation on a classic set of Usenet
+posts. They were distributed between 20 news groups with 1000 posts per group. 
+The classifier attempts to select the news group for each post. 75% of the 
+posts in each group were used for training, the remainder for classification.
+The F-statistic values varied per news groups, with closely related groups 
+having the lowest values. F values for diffeent news groups ranged from 0.61 
+to 0.98, in line with other Baysean classifier implementations.
